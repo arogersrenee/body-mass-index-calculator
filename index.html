@@ -17,102 +17,107 @@
 <body>
 
   <header><img src="assets/images/logo.svg" alt="logo"></header>
-
+  <div class="background-gradient"></div>
   <main>
-    <section class="section-hero">
-      <h1 class="hero-heading">Body Mass Index Calculator</h1>
-      <p class="hero-body">
-        Better understand your weight in relation to your height using our
-        body mass index (BM) calculator. While BMI is not the sole determinant
-        of a healthy weight, it offers a valuable starting point to evaluate
-        your overall health and well-being.
-      </p>
-    </section>
-  
-    <!-- BMI Calc Start -->
-    <section class="section-bmi-calc wrapper">
-      <fieldset class="calc-unit-selection">
-        <legend class="calc-heading">Enter your details below</legend>
-        <div class="calc-measurement-units">
-          <div>
-            <input type="radio" id="metric-unit" value="metric" checked>
-            <label for="metric">Metric</label>
-          </div>
-          <div>
-            <input type="radio" id="imperial-unit" value="imperial">
-            <label for="imperil">Imperial</label>
-          </div>
-        </div>
-      </fieldset>
-      <!-- BMI Calc Metric -->
-      <div class="calc-metric-group">
-        <div class="calc-metric-height calc-unit-container">
-          <div>
-            <label for="metric-height">Height</label>
-            <input type="number" id="metric-height" name="height" placeholder="0">
-          </div>
-          <span class="calc-measurement-unit">cm</span>
-        </div>
-        <div class="calc-metric-weight calc-unit-container">
-          <div>
-            <label for="metric-weight">Weight</label>
-            <input type="number" id="metric-weight" name="weight" placeholder="0">
-          </div>
-          <span class="calc-measurement-unit">kg</span>
-        </div>
-      </div>
-      <!-- BMI Calc Imperial -->
-      <div class="calc-imperial-group">
-        <div class="calc-imperial-height-row">
-          <div class="calc-imperial-height calc-unit-container">
-            <div>
-              <label for="imprial-height-ft">Height</label>
-              <input type="number" id="imperial-height-ft" name="height" placeholder="0">
-            </div>
-            <span class="calc-measurement-unit">ft</span>
-          </div>
-          <div class="calc-imperial-height calc-unit-container">
-            <div>
-              <input type="number" id="imperial-height-in" name="height" placeholder="0">
-            </div>
-            <span class="calc-measurement-unit">in</span>
-          </div>
-        </div>
-        <div class="calc-imperial-weight-row">
-          <div class="calc-imperial-weight calc-unit-container">
-            <div>
-              <label for="imperial-weight-st">Weight</label>
-              <input type="number" id="imperial-weight-st" name="weight" placeholder="0">
-            </div>
-            <span class="calc-measurement-unit">st</span>
-          </div>
-          <div class="calc-imperial-weight calc-unit-container">
-            <div>
-              <label for="imperial-weight-lbs">Weight</label>
-              <input type="number" id="imperial-weight-lbs" name="weight" placeholder="0">
-            </div>
-            <span class="calc-measurement-unit">st</span>
-          </div>
-        </div>
-      </div>
-      <!-- BMi Calc Results -->
-      <div class="calc-bmi-results">
-        <div>
-          <span class="calc-bmi-results-intro">Your BMI is...</span>
-          <span id="calc-bmi-results-score">22.0</span>
-        </div>
-        <p class="calc-bmi-results-summary">
-          Your BMI suggests <span id="calc-bmi-results-classification">you’re a healthy weight</span>.
-          Your ideal weight is between <span id="calc-bmi-resutls-range">9st 6lbs - 12st 10lbs</span>.
+    
+    <div class="section-hero">
+      <section class="hero-intro">
+        <h1 class="hero-intro-heading">Body Mass Index Calculator</h1>
+        <p class="hero-intro-body">
+          Better understand your weight in relation to your height using our
+          body mass index (BM) calculator. While BMI is not the sole determinant
+          of a healthy weight, it offers a valuable starting point to evaluate
+          your overall health and well-being.
         </p>
-      </div>
-    </section>
-    <!-- BMI Calc End -->
+      </section>
+      <!-- BMI Calc Start -->
+      <section class="section-bmi-calc">
+        <fieldset class="calc-unit-selection">
+          <legend class="calc-heading">Enter your details below</legend>
+          <div class="calc-measurement-units">
+            <div>
+              <input type="radio" id="metric-unit" value="metric" name="calc-unit" checked>
+              <label for="metric">Metric</label>
+            </div>
+            <div>
+              <input type="radio" id="imperial-unit" value="imperial" name="calc-unit">
+              <label for="imperil">Imperial</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- BMI Calc Metric -->
+        <div class="calc-metric-group hide">
+          <div class="calc-metric-height">
+            <label for="metric-height" class="calc-measurement-label">Height</label>
+            <div class="calc-unit-container">
+              <input type="number" id="metric-height" name="height" placeholder="0">
+              <span class="calc-measurement-unit-abbrev">cm</span>
+            </div>
+          </div>
+          <div class="calc-metric-weight">
+            <label for="metric-weight" class="calc-measurement-label">Weight</label>
+            <div class="calc-unit-container">
+              <input type="number" id="metric-weight" name="weight" placeholder="0">
+              <span class="calc-measurement-unit-abbrev">kg</span>
+            </div>
+          </div>
+        </div>
+        <!-- BMI Calc Imperial -->
+        <div class="calc-imperial-group">
+          <div class="calc-imperial-height-group">
+            <label for="imprial-height-ft"  class="calc-measurement-label">Height</label>
+            <div class="calc-imperial-height-row">
+              <div class="calc-imperial-height">
+                <div class="calc-unit-container">
+                  <input type="number" id="imperial-height-ft" name="height" placeholder="0">
+                  <span class="calc-measurement-unit-abbrev">ft</span>
+                </div>
+              </div>
+              <div class="calc-imperial-height">
+                <div  class="calc-unit-container">
+                  <input type="number" id="imperial-height-in" name="height" placeholder="0">
+                  <span class="calc-measurement-unit-abbrev">in</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="calc-imperial-weight-group">
+            <label for="imperial-weight-st"  class="calc-measurement-label">Weight</label>
+            <div class="calc-imperial-weight-row">
+              <div class="calc-imperial-weight">
+                <div class="calc-unit-container">
+                  <input type="number" id="imperial-weight-st" name="weight" placeholder="0">
+                  <span class="calc-measurement-unit-abbrev">st</span>
+                </div>
+              </div>
+              <div class="calc-imperial-weight">
+                <div class="calc-unit-container">
+                  <input type="number" id="imperial-weight-lbs" name="weight" placeholder="0">
+                  <span class="calc-measurement-unit-abbrev">lbs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BMi Calc Results -->
+        <div class="calc-bmi-results">
+          <div>
+            <span class="calc-bmi-results-intro">Your BMI is...</span><br>
+            <span id="calc-bmi-results-score">22.0</span>
+          </div>
+          <p class="calc-bmi-results-summary">
+            Your BMI suggests <span id="calc-bmi-results-classification">you’re a healthy weight</span>.
+            Your ideal weight is between <span id="calc-bmi-resutls-range">9st 6lbs - 12st 10lbs</span>.
+          </p>
+        </div>
+      </section>
+      <!-- BMI Calc End -->
+    </div>
 
     <!-- BMI Meaning -->
-    <section class="section-bmi-meaning wrapper">
+    <section class="section-bmi-meaning">
       <img src="assets/images/pattern-curved-line-left.svg" class="curved-line-left" alt="">
-      <img src="assets/images/image-man-eating.webp" alt="man eating sushi">
+      <img src="assets/images/image-man-eating.webp" alt="man eating sushi" class="bmi-meaning-image">
       <div class="bmi-meaning-text">
         <h2 class="section-heading">What your BMI result means</h2>
         <p>
@@ -126,7 +131,7 @@
       </div>
     </section>
 
-    <section class="section-healthy-recs wrapper">
+    <section class="section-healthy-recs">
       <div class="healthy-rec-item">
         <img src="assets/images/icon-eating.svg" alt="">
         <div>
@@ -160,7 +165,7 @@
     </section>
 
     <!-- BMI Limitations -->
-    <section class="section-bmi-limitations wrapper">
+    <section class="section-bmi-limitations">
       <img src="assets/images/pattern-curved-line-right.svg" class="curved-line-right" alt="">
       <div class="limitations-intro">
         <h2 class="section-heading">Limitations of BMI</h2>
