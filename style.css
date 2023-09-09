@@ -1,0 +1,86 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Reset End */
+
+/* Custom Variables */
+
+:root {
+    --clr-blue: #345FF6;
+    --clor-blue-15: hsla(227, 92%, 58%, 0.15);
+    --clr-gunmetal: #253347;
+    --clr-darkeletricblue: #5E6E85;
+    --clr-borders: #D8E2E7;
+    --clr-purewhite: #ffffff;
+    --clr-gradient1: linear-gradient(90deg, #345FF6 0%, #587DFF 100%);
+    --clr-gradient2: linear-gradient(290deg, #D6E6FE 0%, rgba(214, 252, 254, 0.00) 100%);
+    --clr-boxshadow-card: 16px 32px 56px 0px rgba(143, 174, 207, 0.25);
+
+    --ff-primary: 'Inter', sans-serif;
+
+    --fs-heading-XL: 4rem;
+    --fs-heading-L: 3rem;
+    --fs-heading-M: 1.5rem;
+    --fs-heading-S: 1.25rem;
+    --fs-body-S: 0.875rem;
+
+    --lh-heading: 110%;
+    --lh-body: 150%;
+
+    --fw-semibold: 600;
+    --fw-regular: 400;
+
+}
