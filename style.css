@@ -96,6 +96,7 @@ body {
     font-family: var(--ff-primary);
     color: var(--clr-darkeletricblue);
     position: relative;
+    padding-bottom: 6rem;
 }
 
 main {
@@ -154,7 +155,7 @@ p {
     gap: 1.5rem;
 }
 
-.calc-heading {
+.calc-heading, .rec-item-heading {
     font-size: var(--fs-heading-M);
     line-height: var(--lh-heading);
     font-weight: var(--fw-semibold);
@@ -164,8 +165,20 @@ p {
 }
 
 input[type="radio"] {
-    width: 2rem;
-    height: 2rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    appearance: none;
+    border-radius: 50%;
+    border: 1px solid var(--clr-borders);
+}
+
+input[type="radio"]:checked {
+    width: 1rem;
+    height: 1rem;
+    appearance: none;
+    border-radius: 50%;
+    background-color: var(--clr-blue);
+    box-shadow: 0 0 0 0.35rem var(--clor-blue-15);
 }
 
 input[type="radio"]:hover {
@@ -244,6 +257,16 @@ input[type="number"]::placeholder {
     /* line-height: var(--lh-heading); */
 }
 
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 
 .calc-measurement-unit-abbrev {
     position: absolute;
@@ -301,8 +324,6 @@ input[type="number"]::placeholder {
 
 
 
-
-
 /* BMI Meaning */
 
 .curved-line-left, .curved-line-right {
@@ -318,6 +339,10 @@ input[type="number"]::placeholder {
     width: 100%;
 }
 
+.bmi-meaning-text {
+    padding: 0 1.5rem;
+}
+
 .section-heading {
     font-size: var(--fs-heading-ML);
     font-weight: var(--fw-semibold);
@@ -328,17 +353,61 @@ input[type="number"]::placeholder {
 }
 
 
+/* Healthey Recs */
 
+.section-healthy-recs {
+    display: grid;
+    gap: 2.5rem;
+    background-image: var(--clr-gradient3);
+    padding: 3.5rem 1.8rem 3.5rem 1.2rem;
+}
 
+.healthy-rec-item {
+    display: grid;
+    gap: 2rem;
+}
 
+.healthy-rec-item > img {
+    width: 4rem;
+}
 
+/* .rec-item-heading: above with calc heading */
 
+/* bmi limitations */
 
+.section-bmi-limitations {
+    padding: 0 1.8rem 0 1.2rem;
+    display: grid;
+    gap: 1rem;
+}
 
+.limitations-intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
 
+.limitations-card {
+    padding: 2rem;
+    background-color: var(--clr-purewhite);
+    box-shadow: var(--clr-boxshadow-card);
+    display: grid;
+    gap: 1rem;
+    border-radius: 1rem;
+}
 
+.limitations-card-title {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
 
-
+.limitations-card-heading {
+    font-size: var(--fs-heading-S);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading-S);
+    color: var(--clr-gunmetal);
+}
 
 .hide {
     display: none;
