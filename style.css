@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+
 html {
     box-sizing: border-box;
   }
@@ -204,7 +205,7 @@ input[type="radio"]:hover {
 .calc-measurement-units {
     display: flex;
     /* align-items: center; */
-    gap: 3rem;
+    gap: 1.5rem;
     font-weight: var(--fw-semibold);
     color: var(--clr-gunmetal);
     /* margin: 1.5rem 0; */
@@ -557,7 +558,7 @@ input[type=number] {
     .wrapper {
         min-width: 90rem;
         max-width: 110rem;
-        /* margin: 0 auto; */
+        margin: 0 auto;
     }
 
     header {
