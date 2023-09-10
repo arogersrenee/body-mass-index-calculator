@@ -60,7 +60,8 @@ table {
 
 :root {
     --clr-blue: #345FF6;
-    --clor-blue-15: hsla(227, 92%, 58%, 0.15);
+    --clr-lightblue: #E1E7FE;
+    --clr-blue-15: hsla(227, 92%, 58%, 0.15);
     --clr-gunmetal: #253347;
     --clr-darkeletricblue: #5E6E85;
     --clr-borders: #D8E2E7;
@@ -106,7 +107,7 @@ main {
 
 header {
     text-align: center;
-    padding: 2rem 0 2rem;
+    padding: 2rem 0;
 }
 
 header > img {
@@ -130,7 +131,7 @@ header > img {
 }
 
 .hero-intro {
-    text-align: center;
+    text-align: center; 
 }
 
 h1.hero-intro-heading {
@@ -142,11 +143,15 @@ h1.hero-intro-heading {
     letter-spacing: var(--ls-heading-L);
 }
 
+.hero-heading-br {
+    display: none;
+}
+
 p {
     line-height: var(--lh-body);
 }
 
-.section-bmi-calc {
+.hero-bmi-calc {
     background-color: var(--clr-purewhite);
     padding: 1.5rem;
     border-radius: 1rem;
@@ -170,15 +175,14 @@ input[type="radio"] {
     appearance: none;
     border-radius: 50%;
     border: 1px solid var(--clr-borders);
+    margin: 0;
 }
 
 input[type="radio"]:checked {
-    width: 1rem;
-    height: 1rem;
     appearance: none;
     border-radius: 50%;
     background-color: var(--clr-blue);
-    box-shadow: 0 0 0 0.35rem var(--clor-blue-15);
+    border: 0.45rem solid var(--clr-lightblue);
 }
 
 input[type="radio"]:hover {
@@ -265,6 +269,7 @@ input::-webkit-outer-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 
@@ -285,7 +290,8 @@ input[type=number] {
     gap: 1.5rem;
 }
 
-.calc-imperial-height-row, .calc-imperial-weight-row {
+.calc-imperial-height-row, 
+.calc-imperial-weight-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em
@@ -326,7 +332,8 @@ input[type=number] {
 
 /* BMI Meaning */
 
-.curved-line-left, .curved-line-right {
+.curved-line-left, 
+.curved-line-right {
     display: none;
 }
 
@@ -378,7 +385,7 @@ input[type=number] {
 .section-bmi-limitations {
     padding: 0 1.8rem 0 1.2rem;
     display: grid;
-    gap: 1rem;
+    row-gap: 1rem;
 }
 
 .limitations-intro {
@@ -408,6 +415,112 @@ input[type=number] {
     letter-spacing: var(--ls-heading-S);
     color: var(--clr-gunmetal);
 }
+
+
+
+/* TABLET 768PX */
+@media screen and (min-width: 48rem) {
+    header {
+        padding: 2.5rem 0;
+    }
+
+    .hero-heading-br {
+        display: inline;
+    }
+
+    .section-hero {
+        gap: 2.5rem;
+    }
+
+    .calc-measurement-units, 
+    .calc-metric-group, 
+    .calc-imperial-height-row, 
+    .calc-imperial-weight-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        
+    }
+
+    .hero-bmi-calc {
+        background-color: var(--clr-purewhite);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: var(--clr-boxshadow-card);
+        display: grid;
+        gap: 2rem;
+    }
+
+    .calc-bmi-results {
+        border-radius: 8rem 62.4375rem 62.4375rem 8rem; /* added 8rem to left top and bottom */
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(2, 16.7rem);
+        gap: 1.5rem;
+    }
+
+    .section-bmi-meaning {
+        padding: 0 2.69rem;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0.625rem;
+        position: relative;
+        align-items: center; /*fix this, align to center*/
+    }
+
+    .bmi-meaning-image {
+        position: absolute;
+        grid-column: 1/5;
+        left: -5rem;
+        width: 22.55981rem;
+        /* height: 25.69313rem; */
+
+    }
+
+    .bmi-meaning-text {
+        grid-column: 7/-1;
+        padding: 0;
+    }
+
+    .section-healthy-recs {
+        padding: 3.75rem 2.69rem;
+    }
+
+    .healthy-rec-item {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+    }
+
+    .section-bmi-limitations {
+        padding: 0 2.69rem;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 0.625rem;
+    }
+
+    .limitations-intro {
+        margin-bottom: 2rem;
+        grid-column: 1/-1;
+    }
+
+    .limitations-card {
+        /* width: 17rem; */
+        grid-column: span 6;
+    }
+
+    .limitations-card:last-child {
+        grid-column: 4 / span 6;
+    } 
+
+}
+
+
+
+
+
+
+
+
 
 .hide {
     display: none;
