@@ -16,11 +16,11 @@
 </head>
 <body>
 
-  <header><img src="assets/images/logo.svg" alt="logo"></header>
+  <header class="wrapper"><img src="assets/images/logo.svg" alt="logo"></header>
   <div class="background-gradient"></div>
   <main>
     
-    <div class="section-hero">
+    <div class="section-hero wrapper">
       <section class="hero-intro">
         <h1 class="hero-intro-heading">Body Mass <br class="hero-heading-br">Index Calculator</h1>
         <p class="hero-intro-body">
@@ -100,8 +100,12 @@
           </div>
         </div>
         <!-- BMi Calc Results -->
-        <div class="calc-bmi-results">
-          <div>
+        <div id="result-block" class="welcome-block calc-bmi-results">
+          <div id="welcome-msg" class="hide">
+            <span>Welcome</span>
+            <p>Enter your height and weight and you’ll see your BMI result here</p>
+          </div>
+          <div class="">
             <span class="calc-bmi-results-intro">Your BMI is...</span><br>
             <span id="calc-bmi-results-score">22.0</span>
           </div>
@@ -115,7 +119,7 @@
     </div>
 
     <!-- BMI Meaning -->
-    <section class="section-bmi-meaning">
+    <section class="section-bmi-meaning wrapper">
       <img src="assets/images/pattern-curved-line-left.svg" class="curved-line-left" alt="">
       <img src="assets/images/image-man-eating.webp" alt="man eating sushi" class="bmi-meaning-image">
       <div class="bmi-meaning-text">
@@ -131,7 +135,7 @@
       </div>
     </section>
 
-    <section class="section-healthy-recs">
+    <section class="section-healthy-recs wrapper">
       <div class="healthy-rec-item">
         <img src="assets/images/icon-eating.svg" alt="">
         <div>
@@ -165,7 +169,7 @@
     </section>
 
     <!-- BMI Limitations -->
-    <section class="section-bmi-limitations">
+    <section class="section-bmi-limitations wrapper">
       <img src="assets/images/pattern-curved-line-right.svg" class="curved-line-right" alt="">
       <div class="limitations-intro">
         <h2 class="section-heading">Limitations of BMI</h2>

@@ -68,7 +68,7 @@ table {
     --clr-purewhite: #ffffff;
     --clr-gradient1: linear-gradient(90deg, #345FF6 0%, #587DFF 100%);
     --clr-gradient2: linear-gradient(290deg, #D6E6FE 0%, rgba(214, 252, 254, 0.00) 100%);
-    --clr-gradient3: linear-gradient(290deg, #D6E6FE 0%, rgba(214, 252, 254, 0.00) 100%);
+    --clr-gradient3: linear-gradient(290deg, hsla(0, 0%, 100%, .75) 0, hsla(0, 0%, 100%, 0.25) 100%), linear-gradient(290deg, #D6E6FE 0%, rgba(214, 252, 254, 0.00) 100%);
     --clr-boxshadow-card: 16px 32px 56px 0px rgba(143, 174, 207, 0.25);
 
     --ff-primary: 'Inter', sans-serif;
@@ -98,6 +98,11 @@ body {
     color: var(--clr-darkeletricblue);
     position: relative;
     padding-bottom: 6rem;
+}
+
+.wrapper {
+    max-width: 35rem;
+    margin: 0 auto;
 }
 
 main {
@@ -160,7 +165,8 @@ p {
     gap: 1.5rem;
 }
 
-.calc-heading, .rec-item-heading {
+.calc-heading, 
+.rec-item-heading {
     font-size: var(--fs-heading-M);
     line-height: var(--lh-heading);
     font-weight: var(--fw-semibold);
@@ -299,8 +305,27 @@ input[type=number] {
 
 /* bmi calc results */
 
+.welcome-block {
+    background-image: var(--clr-gradient1);
+    color: var(--clr-purewhite);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+#welcome-msg > span {
+    font-size: var(--fs-heading-M);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-heading-M);
+    display: block;
+    margin-bottom: 1rem;
+}
+
+#welcome-msg > p {
+    font-size: var(--fs-body-S);
+}
+
 .calc-bmi-results {
-    background-color: var(--clr-blue);
+    background-image: var(--clr-gradient1);
     color: var(--clr-purewhite);
     padding: 2rem;
     border-radius: 1rem;
@@ -420,6 +445,11 @@ input[type=number] {
 
 /* TABLET 768PX */
 @media screen and (min-width: 48rem) {
+    .wrapper {
+        max-width: 55rem;
+        margin: 0 auto;
+    }
+
     header {
         padding: 2.5rem 0;
     }
@@ -451,12 +481,18 @@ input[type=number] {
         gap: 2rem;
     }
 
+    .welcome-block {
+        border-radius: 8rem 62.4375rem 62.4375rem 8rem; /* added 8rem to left top and bottom */
+        padding: 2rem;
+    }
+
     .calc-bmi-results {
         border-radius: 8rem 62.4375rem 62.4375rem 8rem; /* added 8rem to left top and bottom */
         padding: 2rem;
         display: grid;
-        grid-template-columns: repeat(2, 16.7rem);
+        grid-template-columns: repeat(2, minmax(16.7rem, 1fr));
         gap: 1.5rem;
+        align-items: center;
     }
 
     .section-bmi-meaning {
@@ -464,7 +500,7 @@ input[type=number] {
         grid-template-columns: repeat(12, 1fr);
         gap: 0.625rem;
         position: relative;
-        align-items: center; /*fix this, align to center*/
+        align-items: center;
     }
 
     .bmi-meaning-image {
@@ -472,8 +508,6 @@ input[type=number] {
         grid-column: 1/5;
         left: -5rem;
         width: 22.55981rem;
-        /* height: 25.69313rem; */
-
     }
 
     .bmi-meaning-text {
@@ -514,11 +548,159 @@ input[type=number] {
 
 }
 
+/* Desktop 1440PX */
+@media screen and (min-width: 90rem) {
+    main {
+        gap: 8rem;
+    }
+
+    .wrapper {
+        min-width: 90rem;
+        max-width: 110rem;
+        /* margin: 0 auto; */
+    }
+
+    header {
+        text-align: left;
+        padding: 4.7rem 8.75rem 1.75rem;
+    }
+
+    header > img {
+        width: 4rem;
+    }
+    
+    .background-gradient {
+        height: 42rem;
+        width: 60%;
+        left: 2rem;
+    }
+
+    .section-hero {
+        gap: 2rem;
+        grid-template-columns: repeat(12, 1fr);
+        align-items: center;
+        padding: 0 8.75rem;
+    }
+
+    .hero-intro {
+        text-align: left;
+        grid-column: 1 / span 6;
+    }
+
+    .hero-bmi-calc {
+        grid-column: 7 / span 6 ;
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    h1.hero-intro-heading {
+        font-size: var(--fs-heading-XL);
+        letter-spacing: var(--ls-heading-XL);
+        margin-bottom: 2rem;
+    }
+
+    h1.hero-intro-heading + p {
+        width: 29rem;
+    }
+
+    .calc-bmi-results {
+        grid-template-columns: repeat(2, 1fr)
+    }
 
 
+    .curved-line-left, 
+    .curved-line-right {
+        display: initial;
+        position: absolute;
+        z-index: 2;
+    }
 
+    .section-bmi-meaning {
+        padding: 0 8.75rem;
 
+        gap: 2rem;
+        position: relative;
+    }
 
+    .curved-line-left {
+        right: 12rem;
+        top: -6rem;
+    }
+
+    .bmi-meaning-image {
+        position: initial;
+        grid-column: 1 / span 6;
+        left: -5rem;
+        width: 100%;
+
+    }
+
+    .bmi-meaning-text {
+        grid-column: 8 / span all;
+        padding: 0;
+        padding-top: 2rem;
+    }
+
+    .section-heading {
+        font-size: var(--fs-heading-L);
+        letter-spacing: var(--ls-heading-L);
+        margin-bottom: 2rem;
+    }
+
+    .section-healthy-recs {
+        padding: 3.75rem 7.25rem;
+        margin: 0 1.5rem;
+        border-radius: 2rem;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 2rem;
+
+    }
+
+    .healthy-rec-item {
+        display: grid;
+        gap: 2.8rem;
+        grid-column: span 4;
+    }
+    
+    .section-bmi-limitations {
+        column-gap: 2rem;
+        padding: 0 8.75rem;
+        row-gap: 2rem;
+        position: relative;
+    }
+
+    .curved-line-right {
+        top: 17rem;
+        left: 15rem;
+    }
+
+    .limitations-intro {
+        margin-bottom: 2rem;
+        grid-column: span 6;
+        text-align: left;
+    }
+
+    .limitations-card,
+    .limitations-card:last-child {
+        grid-column: span 4;
+    }
+
+    .section-bmi-limitations > div:nth-child(4) {
+        grid-column: 4 / span 4;
+    }
+
+    .section-bmi-limitations > div:nth-child(6) {
+        grid-column: 3 / span 4;
+    }
+}
+
+@media screen and (min-width: 110rem) {
+    .wrapper {
+        max-width: 110rem;
+        margin: 0 auto;
+    }
+}
 
 
 
