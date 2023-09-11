@@ -204,11 +204,10 @@ input[type="radio"]:hover {
 
 .calc-measurement-units {
     display: flex;
-    /* align-items: center; */
     gap: 1.5rem;
+    gap: 12%;
     font-weight: var(--fw-semibold);
     color: var(--clr-gunmetal);
-    /* margin: 1.5rem 0; */
 }
 
 .calc-metric-group {
@@ -556,7 +555,7 @@ input[type=number] {
     }
 
     .wrapper {
-        min-width: 90rem;
+        /* min-width: 90rem; */
         max-width: 110rem;
         margin: 0 auto;
     }
@@ -655,7 +654,6 @@ input[type=number] {
         border-radius: 2rem;
         grid-template-columns: repeat(12, 1fr);
         column-gap: 2rem;
-
     }
 
     .healthy-rec-item {
@@ -669,17 +667,19 @@ input[type=number] {
         padding: 0 8.75rem;
         row-gap: 2rem;
         position: relative;
+        align-items: center;
     }
 
     .curved-line-right {
-        top: 17rem;
-        left: 15rem;
+        top: 15rem;
+        left: 20rem;
     }
 
     .limitations-intro {
         margin-bottom: 2rem;
         grid-column: span 6;
         text-align: left;
+        padding-right: 2rem;
     }
 
     .limitations-card,
@@ -687,8 +687,12 @@ input[type=number] {
         grid-column: span 4;
     }
 
+    .section-bmi-limitations > div:nth-child(3) {
+        grid-column: 8 / span 4;
+    }
+
     .section-bmi-limitations > div:nth-child(4) {
-        grid-column: 4 / span 4;
+        grid-column: 5 / span 4;
     }
 
     .section-bmi-limitations > div:nth-child(6) {
@@ -700,6 +704,11 @@ input[type=number] {
     .wrapper {
         max-width: 110rem;
         margin: 0 auto;
+    }
+
+    .section-healthy-recs {
+        padding: 3.75rem 8.25rem;
+        
     }
 }
 
