@@ -185,6 +185,10 @@ input[type="radio"] {
     margin: 0;
 }
 
+input[type="radio"]:hover {
+    border: 1px solid var(--clr-blue);
+}
+
 input[type="radio"]:checked {
     appearance: none;
     border-radius: 50%;

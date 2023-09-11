@@ -1,24 +1,45 @@
 /* ------ START ---------
 
-When no imput, welcome-msg is visible, hide results-summary. With input hide welcom-msg, show results-summary.
+When no input, welcome-msg is visible, hide results-summary. With input hide welcom-msg, show results-summary.
 
 
-.results-block (add/remove .welcome-block, .calc-bmi-results)
+.result-block (add/remove .welcome-block, .calc-bmi-results)
 .results-summary : (qSA * 2) : toggle hide
-#welcome-block : toggle hide
+#welcome-msg : toggle hide
 .hide
 
 ------ END ---------*/
 
+(function toggleWelcome() {
+    const bioInputs = document.querySelectorAll("input[type=number]");
+    const resultBlock = document.querySelector("#result-block");
+    const welcomeMsg = document.querySelector("#welcome-msg"); 
+    const resultsSummary = document.querySelectorAll(".results-summary");
 
+    bioInputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            showHideWelcome(input);
+        })
+    })
 
-
-
-
-
-
-
-
+    function showHideWelcome(text) {
+        if(text.value == "") {
+        resultBlock.classList.add("welcome-block");
+        resultBlock.classList.remove("calc-bmi-results");
+        welcomeMsg.classList.remove("hide");
+        resultsSummary.forEach((summary) => {
+            summary.classList.add("hide")
+        });
+        } else {
+            resultBlock.classList.remove("welcome-block");
+            resultBlock.classList.add("calc-bmi-results");
+            welcomeMsg.classList.add("hide");
+            resultsSummary.forEach((summary) => {
+                summary.classList.remove("hide")
+            });
+        }
+    }
+})()
 
 
 
@@ -42,7 +63,56 @@ When imperial radio (#imperial-unit) is selected:
 
 ------ END ---------*/
 
+const metricUnit = document.querySelector("#metric-unit");
+const imperialUnit = document.querySelector("#imperial-unit");
 
+
+(function selectUnit () {
+
+    const unitSelection = document.querySelectorAll("input[name=calc-unit]");
+    const metricGroup = document.querySelector(".calc-metric-group");
+    const imperialGroup = document.querySelector(".calc-imperial-group");
+
+    unitSelection.forEach((selection) => {
+    selection.addEventListener("change", () => {
+        // Metric Calculator
+        if(selection.value == "metric") {
+            console.log('this is metric')
+            metricGroup.classList.remove("hide");
+            imperialGroup.classList.add("hide")
+
+        }
+
+        if(selection.value == "imperial") {
+            console.log('this is imperial')
+            metricGroup.classList.add("hide");
+            imperialGroup.classList.remove("hide")
+        }
+    })
+});
+})()
+
+
+
+
+
+// if (metricUnit.checked == true) {
+//     console.log("metric")
+// } 
+
+// else if (imperialUnit.checked == true)  {
+//     console.log("imperial")  
+// }
+
+
+
+const metricHeight = document.querySelector("#metric-height").value.trim(); 
+const metricWeight = document.querySelector("#metric-height").value.trim(); 
+
+const imperialHeightFt = document.querySelector("#imperial-height-ft").value.trim(); 
+const imperialHeightIn = document.querySelector("#imperial-height-in").value.trim();
+const imperialWeightSt = document.querySelector("#imperial-weight-st").value.trim(); 
+const imperialWeightLbs = document.querySelector("#imperial-weight-lbs").value.trim();
 
 
 
