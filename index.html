@@ -31,7 +31,7 @@
         </p>
       </section>
       <!-- BMI Calc Start -->
-      <section class="hero-bmi-calc">
+      <div class="hero-bmi-calc">
         <fieldset class="calc-unit-selection">
           <legend class="calc-heading">Enter your details below</legend>
           <div class="calc-measurement-units">
@@ -100,21 +100,21 @@
           </div>
         </div>
         <!-- BMi Calc Results -->
-        <div id="result-block" class="welcome-block calc-bmi-results">
-          <div id="welcome-msg" class="hide">
+        <div id="result-block" class="welcome-block">
+          <div id="welcome-msg" class="">
             <span>Welcome</span>
             <p>Enter your height and weight and you’ll see your BMI result here</p>
           </div>
-          <div class="">
+          <div class="results-summary hide">
             <span class="calc-bmi-results-intro">Your BMI is...</span><br>
             <span id="calc-bmi-results-score">22.0</span>
           </div>
-          <p class="calc-bmi-results-summary">
+          <p class="calc-bmi-results-summary results-summary hide">
             Your BMI suggests <span id="calc-bmi-results-classification">you’re a healthy weight</span>.
             Your ideal weight is between <span id="calc-bmi-resutls-range">9st 6lbs - 12st 10lbs</span>.
           </p>
         </div>
-      </section>
+      </div>
       <!-- BMI Calc End -->
     </div>
 
@@ -231,5 +231,6 @@
       </div>
     </section>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>
