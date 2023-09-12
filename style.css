@@ -229,6 +229,7 @@ input[type="radio"]:hover {
     display: inline-block;
     font-size: var(--fs-body-S);
     margin-bottom: 0.5rem;
+    color: var(--clr-darkeletricblue);
 }
 
 .calc-unit-container {
@@ -260,15 +261,16 @@ input[type="number"]:focus {
 }
 
 input[type="number"]::placeholder {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate(0, -50%); */
     font-size: var(--fs-heading-M);
     font-weight: var(--fw-semibold);
     letter-spacing: var(--ls-heading-M);
     color: var(--clr-gunmetal);
     opacity: 0.25;
-    /* line-height: var(--lh-heading); */
+    line-height: var(--lh-heading);
+    
 }
 
 input::-webkit-inner-spin-button,
