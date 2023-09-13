@@ -67,10 +67,8 @@ When imperial radio (#imperial-unit) is selected:
 
 ------ END ---------*/
 
-// const metricUnit = document.querySelector("#metric-unit");
-// const imperialUnit = document.querySelector("#imperial-unit");
 
-
+// radio buttons: select unit & reset values and summary
 (function selectUnit () {
     const unitSelection = document.querySelectorAll("input[name=calc-unit]");
     const metricGroup = document.querySelector(".calc-metric-group");
@@ -78,25 +76,24 @@ When imperial radio (#imperial-unit) is selected:
 
     unitSelection.forEach((selection) => {
         selection.addEventListener("change", () => {
-
             if(selection.value == "metric") {
-                console.log('this is metric')
                 metricGroup.classList.remove("hide");
                 imperialGroup.classList.add("hide")
-                imperialHeightFt = ""; 
-                imperialHeightIn = "";
-                imperialWeightSt = ""; 
-                imperialWeightLbs = "";
+                imperialHeightFt.value = ""; 
+                imperialHeightIn.value = "";
+                imperialWeightSt.value = ""; 
+                imperialWeightLbs.value = "";
                 showWelcome();
+                resetSummary();
             }
 
             if(selection.value == "imperial") {
-                console.log('this is imperial')
                 metricGroup.classList.add("hide");
                 imperialGroup.classList.remove("hide");
                 metricHeight.value = "";
                 metricWeight.value = "";
                 showWelcome();
+                resetSummary();
 
             }
         })
@@ -104,17 +101,25 @@ When imperial radio (#imperial-unit) is selected:
 
 })();
 
+function resetSummary() {
+    const bmiScore = document.querySelector("#calc-bmi-results-score")
+    const bmiClassification = document.querySelector("#calc-bmi-results-classification");
+    const bmiRange = document.querySelector("#calc-bmi-resutls-range");
 
+    bmiScore.textContent = "";
+    bmiClassification.textContent = "..";
+    bmiRange.textContent = "..";
+}
 
 const numInputs = document.querySelectorAll("input[type=number]");
 
-let metricHeight = document.querySelector("#metric-height"); 
-let metricWeight = document.querySelector("#metric-weight");
+const metricHeight = document.querySelector("#metric-height"); 
+const metricWeight = document.querySelector("#metric-weight");
 
-let imperialHeightFt = document.querySelector("#imperial-height-ft"); 
-let imperialHeightIn = document.querySelector("#imperial-height-in");
-let imperialWeightSt = document.querySelector("#imperial-weight-st"); 
-let imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
+const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
+const imperialHeightIn = document.querySelector("#imperial-height-in");
+const imperialWeightSt = document.querySelector("#imperial-weight-st"); 
+const imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
 
 const bmiScore = document.querySelector("#calc-bmi-results-score");
 const bmiClassification = document.querySelector("#calc-bmi-results-classification");
@@ -123,19 +128,19 @@ const bmiClassification = document.querySelector("#calc-bmi-results-classificati
 numInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
-            bmiScore.textContent = calculateBMI(...metricCaluclator());
+            bmiScore.textContent = calculateBMI(...convertMetricUnits());
             updateClassification();
             updateMetricResultsRange();
         }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
-            bmiScore.textContent = calculateBMI(...imperialCaluclator());
+            bmiScore.textContent = calculateBMI(...convertImperialUnits());
             updateClassification();
             updateImperialResultsRange();
         }
     })
 })
 
-
-function imperialCaluclator() {
+//convert to lbs and inches
+function convertImperialUnits() {
     let feet = imperialHeightFt.value.trim();
     let inches = imperialHeightIn.value.trim();
     let stones = imperialWeightSt.value.trim();
@@ -154,7 +159,7 @@ function imperialCaluclator() {
     return [weight, height]
 }
 
-function metricCaluclator() {
+function convertMetricUnits() {
     let kilograms = metricWeight.value.trim();
     let centimeters = metricHeight.value.trim();
     height = Number(centimeters) / 2.54;
@@ -162,12 +167,13 @@ function metricCaluclator() {
     return [weight, height]
 }
 
+// BMI = (weight (lbs) / (height(inches)*2)) * 703
 function calculateBMI (weight, height) {
     let bmi = (weight / (height**2)) * 703;
     bmi = Math.round(bmi * 10) / 10;
-    console.log("bmi = " + bmi);
     return bmi
 }
+
 
 function updateClassification() {
     if (Number(bmiScore.textContent) >= 30){
@@ -226,8 +232,8 @@ function updateMetricResultsRange() {
             break;
         case (76): healthyBMI.textContent = "70.8kgs - 89.5kgs";
             break;
-    };
-};
+    }
+}
 
 function updateImperialResultsRange() {
     const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
@@ -276,9 +282,9 @@ function updateImperialResultsRange() {
             break;
         case (76): healthyBMI.textContent = "11st 2lbs - 14st 1lb";
             break;
-    };
+    }
 
-};
+}
 
 
 
@@ -420,65 +426,3 @@ Healthy weight range: (imperial)
 
 
 
-
-
-
-/*
-
-function calculateBMI() {
-    const metricHeight = document.querySelector("#metric-height"); 
-    const metricWeight = document.querySelector("#metric-weight");
-    const numInputs = document.querySelectorAll("input[type=number]");
-
-
-    const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
-    const imperialHeightIn = document.querySelector("#imperial-height-in");
-    const imperialWeightSt = document.querySelector("#imperial-weight-st"); 
-    const imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
-
-    numInputs.forEach((input) => {
-        input.addEventListener("keyup", () => {
-            if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
-                calculateBMI(...metricCaluclator())
-            }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
-                calculateBMI(...imperialCaluclator())
-            }
-        })
-    })
-
-    function imperialCaluclator() {
-        let feet = imperialHeightFt.value.trim();
-        let inches = imperialHeightIn.value.trim();
-        let stones = imperialWeightSt.value.trim();
-        let pounds = imperialWeightLbs.value.trim();
-
-        if (inches == ""){
-            inches = 0;
-        }
-
-        if (pounds == ""){
-            pounds = 0;
-        }
-
-        weight = (Number(stones) * 14) + Number(pounds);
-        height = (Number(feet) * 12) + Number(inches);
-        return [weight, height]
-    }
-
-    function metricCaluclator() {
-        let centimeters = metricWeight.value.trim();
-        let kilograms = metricHeight.value.trim();
-        weight = Number(centimeters) * 2.205;
-        height = Number(kilograms) / 2.54;
-        return [weight, height]
-    }
-
-    function calculateBMI (weight, height) {
-        let bmi = (weight / (height**2)) * 703;
-        bmi = Math.round(bmi * 100) / 100;
-        console.log("bmi = " + bmi);
-        return bmi
-    }
-};
-
-*/
