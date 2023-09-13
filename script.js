@@ -10,38 +10,41 @@ When no input, welcome-msg is visible, hide results-summary. With input hide wel
 
 ------ END ---------*/
 
-(function toggleWelcome() {
+function toggleWelcome() {
     const bioInputs = document.querySelectorAll("input[type=number]");
-    const resultBlock = document.querySelector("#result-block");
-    const welcomeMsg = document.querySelector("#welcome-msg"); 
-    const resultsSummary = document.querySelectorAll(".results-summary");
+    
 
     bioInputs.forEach((input) => {
         input.addEventListener('input', () => {
             showHideWelcome(input);
         })
     })
+};
 
-    function showHideWelcome(text) {
-        if(text.value == "") {
-        resultBlock.classList.add("welcome-block");
-        resultBlock.classList.remove("calc-bmi-results");
-        welcomeMsg.classList.remove("hide");
+function showHideWelcome(text) {
+    const resultBlock = document.querySelector("#result-block");
+    const welcomeMsg = document.querySelector("#welcome-msg"); 
+    const resultsSummary = document.querySelectorAll(".results-summary");
+
+    if(text.value == "") {
+    resultBlock.classList.add("welcome-block");
+    resultBlock.classList.remove("calc-bmi-results");
+    welcomeMsg.classList.remove("hide");
+    resultsSummary.forEach((summary) => {
+        summary.classList.add("hide")
+    });
+    } else {
+        resultBlock.classList.remove("welcome-block");
+        resultBlock.classList.add("calc-bmi-results");
+        welcomeMsg.classList.add("hide");
         resultsSummary.forEach((summary) => {
-            summary.classList.add("hide")
+            summary.classList.remove("hide")
         });
-        } else {
-            resultBlock.classList.remove("welcome-block");
-            resultBlock.classList.add("calc-bmi-results");
-            welcomeMsg.classList.add("hide");
-            resultsSummary.forEach((summary) => {
-                summary.classList.remove("hide")
-            });
-        }
     }
-})()
+}
 
 
+window.addEventListener("load", toggleWelcome);
 
 /* ------ START ---------
 
@@ -60,10 +63,8 @@ When imperial radio (#imperial-unit) is selected:
 
 ------ END ---------*/
 
-const metricUnit = document.querySelector("#metric-unit");
-const imperialUnit = document.querySelector("#imperial-unit");
-
-
+// const metricUnit = document.querySelector("#metric-unit");
+// const imperialUnit = document.querySelector("#imperial-unit");
 
 
 (function selectUnit () {
@@ -71,9 +72,13 @@ const imperialUnit = document.querySelector("#imperial-unit");
     const metricGroup = document.querySelector(".calc-metric-group");
     const imperialGroup = document.querySelector(".calc-imperial-group");
 
+    const resultBlock = document.querySelector("#result-block");
+    const welcomeMsg = document.querySelector("#welcome-msg"); 
+    const resultsSummary = document.querySelectorAll(".results-summary");
+
     unitSelection.forEach((selection) => {
         selection.addEventListener("change", () => {
-            // Metric Calculator
+
             if(selection.value == "metric") {
                 console.log('this is metric')
                 metricGroup.classList.remove("hide");
@@ -82,41 +87,76 @@ const imperialUnit = document.querySelector("#imperial-unit");
                 imperialHeightIn = "";
                 imperialWeightSt = ""; 
                 imperialWeightLbs = "";
+
+                resultBlock.classList.add("welcome-block");
+    resultBlock.classList.remove("calc-bmi-results");
+    welcomeMsg.classList.remove("hide");
+    resultsSummary.forEach((summary) => {
+        summary.classList.add("hide")
+    });
             }
 
             if(selection.value == "imperial") {
                 console.log('this is imperial')
                 metricGroup.classList.add("hide");
-                imperialGroup.classList.remove("hide")
+                imperialGroup.classList.remove("hide");
                 metricHeight.value = "";
                 metricWeight.value = "";
+
+                resultBlock.classList.add("welcome-block");
+    resultBlock.classList.remove("calc-bmi-results");
+    welcomeMsg.classList.remove("hide");
+    resultsSummary.forEach((summary) => {
+        summary.classList.add("hide")
+    });
+
             }
         })
     });
-})()
+
+})();
 
 
-const metricHeight = document.querySelector("#metric-height"); 
-const metricWeight = document.querySelector("#metric-weight");
+
 const numInputs = document.querySelectorAll("input[type=number]");
 
+let metricHeight = document.querySelector("#metric-height"); 
+let metricWeight = document.querySelector("#metric-weight");
 
-const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
-const imperialHeightIn = document.querySelector("#imperial-height-in");
-const imperialWeightSt = document.querySelector("#imperial-weight-st"); 
-const imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
+let imperialHeightFt = document.querySelector("#imperial-height-ft"); 
+let imperialHeightIn = document.querySelector("#imperial-height-in");
+let imperialWeightSt = document.querySelector("#imperial-weight-st"); 
+let imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
+
+
+const bmiScore = document.querySelector("#calc-bmi-results-score");
+const bmiClassification = document.querySelector("#calc-bmi-results-classification");
+
+
 
 numInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
-            metricCaluclator();
-            calculateBMI(...metricCaluclator())
+            bmiScore.textContent = calculateBMI(...metricCaluclator());
+            updateClassification();
         }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
-            imperialCaluclator();
-            calculateBMI(...imperialCaluclator())
+            bmiScore.textContent = calculateBMI(...imperialCaluclator());
+            updateClassification();
         }
     })
 })
+
+function updateClassification() {
+    if (Number(bmiScore.textContent) >= 30){
+        bmiClassification.textContent = "you're obese";
+    } else if (Number(bmiScore.textContent) >= 25 && Number(bmiScore.textContent) < 30){
+        bmiClassification.textContent = "you're overweight";
+    } else if (Number(bmiScore.textContent) >= 18.5 && Number(bmiScore.textContent) < 25) {
+        bmiClassification.textContent = "you're a healthy weight";
+    } else {
+        bmiClassification.textContent = "you're underweight"
+    }
+}
 
 function imperialCaluclator() {
     let feet = imperialHeightFt.value.trim();
@@ -151,7 +191,6 @@ function calculateBMI (weight, height) {
     console.log("bmi = " + bmi);
     return bmi
 }
-
 
 
 
@@ -289,3 +328,72 @@ Healthy weight range: (imperial)
 
 // convert strings to numbers
 //https://dev.to/sanchithasr/7-ways-to-convert-a-string-to-number-in-javascript-4l
+
+
+
+
+
+
+
+
+
+
+/*
+
+function calculateBMI() {
+    const metricHeight = document.querySelector("#metric-height"); 
+    const metricWeight = document.querySelector("#metric-weight");
+    const numInputs = document.querySelectorAll("input[type=number]");
+
+
+    const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
+    const imperialHeightIn = document.querySelector("#imperial-height-in");
+    const imperialWeightSt = document.querySelector("#imperial-weight-st"); 
+    const imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
+
+    numInputs.forEach((input) => {
+        input.addEventListener("keyup", () => {
+            if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
+                calculateBMI(...metricCaluclator())
+            }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
+                calculateBMI(...imperialCaluclator())
+            }
+        })
+    })
+
+    function imperialCaluclator() {
+        let feet = imperialHeightFt.value.trim();
+        let inches = imperialHeightIn.value.trim();
+        let stones = imperialWeightSt.value.trim();
+        let pounds = imperialWeightLbs.value.trim();
+
+        if (inches == ""){
+            inches = 0;
+        }
+
+        if (pounds == ""){
+            pounds = 0;
+        }
+
+        weight = (Number(stones) * 14) + Number(pounds);
+        height = (Number(feet) * 12) + Number(inches);
+        return [weight, height]
+    }
+
+    function metricCaluclator() {
+        let centimeters = metricWeight.value.trim();
+        let kilograms = metricHeight.value.trim();
+        weight = Number(centimeters) * 2.205;
+        height = Number(kilograms) / 2.54;
+        return [weight, height]
+    }
+
+    function calculateBMI (weight, height) {
+        let bmi = (weight / (height**2)) * 703;
+        bmi = Math.round(bmi * 100) / 100;
+        console.log("bmi = " + bmi);
+        return bmi
+    }
+};
+
+*/
