@@ -43,9 +43,6 @@ When no input, welcome-msg is visible, hide results-summary. With input hide wel
 
 
 
-
-
-
 /* ------ START ---------
 
 When metric radio (#metric-unit) is selected: 
@@ -67,52 +64,96 @@ const metricUnit = document.querySelector("#metric-unit");
 const imperialUnit = document.querySelector("#imperial-unit");
 
 
-(function selectUnit () {
 
+
+(function selectUnit () {
     const unitSelection = document.querySelectorAll("input[name=calc-unit]");
     const metricGroup = document.querySelector(".calc-metric-group");
     const imperialGroup = document.querySelector(".calc-imperial-group");
 
     unitSelection.forEach((selection) => {
-    selection.addEventListener("change", () => {
-        // Metric Calculator
-        if(selection.value == "metric") {
-            console.log('this is metric')
-            metricGroup.classList.remove("hide");
-            imperialGroup.classList.add("hide")
+        selection.addEventListener("change", () => {
+            // Metric Calculator
+            if(selection.value == "metric") {
+                console.log('this is metric')
+                metricGroup.classList.remove("hide");
+                imperialGroup.classList.add("hide")
+                imperialHeightFt = ""; 
+                imperialHeightIn = "";
+                imperialWeightSt = ""; 
+                imperialWeightLbs = "";
+            }
 
-        }
-
-        if(selection.value == "imperial") {
-            console.log('this is imperial')
-            metricGroup.classList.add("hide");
-            imperialGroup.classList.remove("hide")
-        }
-    })
-});
+            if(selection.value == "imperial") {
+                console.log('this is imperial')
+                metricGroup.classList.add("hide");
+                imperialGroup.classList.remove("hide")
+                metricHeight.value = "";
+                metricWeight.value = "";
+            }
+        })
+    });
 })()
 
 
+const metricHeight = document.querySelector("#metric-height"); 
+const metricWeight = document.querySelector("#metric-weight");
+const numInputs = document.querySelectorAll("input[type=number]");
+
+
+const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
+const imperialHeightIn = document.querySelector("#imperial-height-in");
+const imperialWeightSt = document.querySelector("#imperial-weight-st"); 
+const imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
+
+numInputs.forEach((input) => {
+    input.addEventListener("keyup", () => {
+        if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
+            metricCaluclator();
+            calculateBMI(...metricCaluclator())
+        }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
+            imperialCaluclator();
+            calculateBMI(...imperialCaluclator())
+        }
+    })
+})
+
+function imperialCaluclator() {
+    let feet = imperialHeightFt.value.trim();
+    let inches = imperialHeightIn.value.trim();
+    let stones = imperialWeightSt.value.trim();
+    let pounds = imperialWeightLbs.value.trim();
+
+    if (inches == ""){
+        inches = 0;
+    }
+
+    if (pounds == ""){
+        pounds = 0;
+    }
+
+    weight = (Number(stones) * 14) + Number(pounds);
+    height = (Number(feet) * 12) + Number(inches);
+    return [weight, height]
+}
+
+function metricCaluclator() {
+    let centimeters = metricWeight.value.trim();
+    let kilograms = metricHeight.value.trim();
+    weight = Number(centimeters) * 2.205;
+    height = Number(kilograms) / 2.54;
+    return [weight, height]
+}
+
+function calculateBMI (weight, height) {
+    let bmi = (weight / (height**2)) * 703;
+    bmi = Math.round(bmi * 100) / 100;
+    console.log("bmi = " + bmi);
+    return bmi
+}
 
 
 
-// if (metricUnit.checked == true) {
-//     console.log("metric")
-// } 
-
-// else if (imperialUnit.checked == true)  {
-//     console.log("imperial")  
-// }
-
-
-
-const metricHeight = document.querySelector("#metric-height").value.trim(); 
-const metricWeight = document.querySelector("#metric-height").value.trim(); 
-
-const imperialHeightFt = document.querySelector("#imperial-height-ft").value.trim(); 
-const imperialHeightIn = document.querySelector("#imperial-height-in").value.trim();
-const imperialWeightSt = document.querySelector("#imperial-weight-st").value.trim(); 
-const imperialWeightLbs = document.querySelector("#imperial-weight-lbs").value.trim();
 
 
 
@@ -243,3 +284,8 @@ Healthy weight range: (imperial)
 
 
 // .hide
+
+
+
+// convert strings to numbers
+//https://dev.to/sanchithasr/7-ways-to-convert-a-string-to-number-in-javascript-4l
