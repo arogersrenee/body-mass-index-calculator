@@ -10,41 +10,45 @@ When no input, welcome-msg is visible, hide results-summary. With input hide wel
 
 ------ END ---------*/
 
-function toggleWelcome() {
+(function toggleWelcome() {
     const bioInputs = document.querySelectorAll("input[type=number]");
-    
 
     bioInputs.forEach((input) => {
         input.addEventListener('input', () => {
-            showHideWelcome(input);
+            if(input.value == ""){
+                showWelcome();
+            } else {
+                hideWelcome();
+            };
         })
     })
-};
+})();
 
-function showHideWelcome(text) {
+function showWelcome() {
     const resultBlock = document.querySelector("#result-block");
     const welcomeMsg = document.querySelector("#welcome-msg"); 
     const resultsSummary = document.querySelectorAll(".results-summary");
 
-    if(text.value == "") {
     resultBlock.classList.add("welcome-block");
     resultBlock.classList.remove("calc-bmi-results");
     welcomeMsg.classList.remove("hide");
     resultsSummary.forEach((summary) => {
         summary.classList.add("hide")
     });
-    } else {
-        resultBlock.classList.remove("welcome-block");
-        resultBlock.classList.add("calc-bmi-results");
-        welcomeMsg.classList.add("hide");
-        resultsSummary.forEach((summary) => {
-            summary.classList.remove("hide")
-        });
-    }
 }
 
+function hideWelcome() {
+    const resultBlock = document.querySelector("#result-block");
+    const welcomeMsg = document.querySelector("#welcome-msg"); 
+    const resultsSummary = document.querySelectorAll(".results-summary");
 
-window.addEventListener("load", toggleWelcome);
+    resultBlock.classList.remove("welcome-block");
+    resultBlock.classList.add("calc-bmi-results");
+    welcomeMsg.classList.add("hide");
+    resultsSummary.forEach((summary) => {
+        summary.classList.remove("hide")
+    });
+}
 
 /* ------ START ---------
 
@@ -72,10 +76,6 @@ When imperial radio (#imperial-unit) is selected:
     const metricGroup = document.querySelector(".calc-metric-group");
     const imperialGroup = document.querySelector(".calc-imperial-group");
 
-    const resultBlock = document.querySelector("#result-block");
-    const welcomeMsg = document.querySelector("#welcome-msg"); 
-    const resultsSummary = document.querySelectorAll(".results-summary");
-
     unitSelection.forEach((selection) => {
         selection.addEventListener("change", () => {
 
@@ -87,13 +87,7 @@ When imperial radio (#imperial-unit) is selected:
                 imperialHeightIn = "";
                 imperialWeightSt = ""; 
                 imperialWeightLbs = "";
-
-                resultBlock.classList.add("welcome-block");
-    resultBlock.classList.remove("calc-bmi-results");
-    welcomeMsg.classList.remove("hide");
-    resultsSummary.forEach((summary) => {
-        summary.classList.add("hide")
-    });
+                showWelcome();
             }
 
             if(selection.value == "imperial") {
@@ -102,13 +96,7 @@ When imperial radio (#imperial-unit) is selected:
                 imperialGroup.classList.remove("hide");
                 metricHeight.value = "";
                 metricWeight.value = "";
-
-                resultBlock.classList.add("welcome-block");
-    resultBlock.classList.remove("calc-bmi-results");
-    welcomeMsg.classList.remove("hide");
-    resultsSummary.forEach((summary) => {
-        summary.classList.add("hide")
-    });
+                showWelcome();
 
             }
         })
@@ -128,10 +116,8 @@ let imperialHeightIn = document.querySelector("#imperial-height-in");
 let imperialWeightSt = document.querySelector("#imperial-weight-st"); 
 let imperialWeightLbs = document.querySelector("#imperial-weight-lbs");
 
-
 const bmiScore = document.querySelector("#calc-bmi-results-score");
 const bmiClassification = document.querySelector("#calc-bmi-results-classification");
-
 
 
 numInputs.forEach((input) => {
@@ -139,24 +125,15 @@ numInputs.forEach((input) => {
         if(metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
             bmiScore.textContent = calculateBMI(...metricCaluclator());
             updateClassification();
+            updateMetricResultsRange();
         }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
             bmiScore.textContent = calculateBMI(...imperialCaluclator());
             updateClassification();
+            updateImperialResultsRange();
         }
     })
 })
 
-function updateClassification() {
-    if (Number(bmiScore.textContent) >= 30){
-        bmiClassification.textContent = "you're obese";
-    } else if (Number(bmiScore.textContent) >= 25 && Number(bmiScore.textContent) < 30){
-        bmiClassification.textContent = "you're overweight";
-    } else if (Number(bmiScore.textContent) >= 18.5 && Number(bmiScore.textContent) < 25) {
-        bmiClassification.textContent = "you're a healthy weight";
-    } else {
-        bmiClassification.textContent = "you're underweight"
-    }
-}
 
 function imperialCaluclator() {
     let feet = imperialHeightFt.value.trim();
@@ -178,22 +155,130 @@ function imperialCaluclator() {
 }
 
 function metricCaluclator() {
-    let centimeters = metricWeight.value.trim();
-    let kilograms = metricHeight.value.trim();
-    weight = Number(centimeters) * 2.205;
-    height = Number(kilograms) / 2.54;
+    let kilograms = metricWeight.value.trim();
+    let centimeters = metricHeight.value.trim();
+    height = Number(centimeters) / 2.54;
+    weight = Number(kilograms) * 2.205;
     return [weight, height]
 }
 
 function calculateBMI (weight, height) {
     let bmi = (weight / (height**2)) * 703;
-    bmi = Math.round(bmi * 100) / 100;
+    bmi = Math.round(bmi * 10) / 10;
     console.log("bmi = " + bmi);
     return bmi
 }
 
+function updateClassification() {
+    if (Number(bmiScore.textContent) >= 30){
+        bmiClassification.textContent = "you're obese";
+    } else if (Number(bmiScore.textContent) >= 25 && Number(bmiScore.textContent) < 30){
+        bmiClassification.textContent = "you're overweight";
+    } else if (Number(bmiScore.textContent) >= 18.5 && Number(bmiScore.textContent) < 25) {
+        bmiClassification.textContent = "you're a healthy weight";
+    } else {
+        bmiClassification.textContent = "you're underweight"
+    }
+}
 
+function updateMetricResultsRange() {
+    const metricHeight = document.querySelector("#metric-height");
+    let centimeters = metricHeight.value.trim();
+    height = Math.ceil((Number(centimeters) / 2.54));
+    const healthyBMI = document.querySelector("#calc-bmi-resutls-range");
 
+    switch (height) {
+        case (58): healthyBMI.textContent = "41.2kgs - 52.2kgs";
+            break;
+        case (59): healthyBMI.textContent = "42.6kgs - 54kgs";
+            break;
+        case (60): healthyBMI.textContent = "44.0kgs - 55.8kgs";
+            break;
+        case (61): healthyBMI.textContent = "45.5kgs - 57.6kgs";
+            break;
+        case (62): healthyBMI.textContent = "47.2kgs - 59.4kgs";
+            break;
+        case (63): healthyBMI.textContent = "48.5kgs - 61.2kgs";
+            break; 
+        case (64): healthyBMI.textContent = "49.9kgs - 63.5kgs";
+            break;
+        case (65): healthyBMI.textContent = "51.7kgs - 65.3kgs";
+            break;
+        case (66): healthyBMI.textContent = "53.5kgs - 67.1kgs";
+            break;
+        case (67): healthyBMI.textContent = "54.9kgs - 69.4kgs";
+            break;
+        case (68): healthyBMI.textContent = "56.7kgs - 71.7kgs";
+            break;
+        case (69): healthyBMI.textContent = "58.1kgs - 73.5kgs";
+            break;
+        case (70): healthyBMI.textContent = "59.9kgs - 75.5kgs";
+            break;
+        case (71): healthyBMI.textContent = "61.7kgs - 78.0kgs";
+            break;
+        case (72): healthyBMI.textContent = "63.5kgs - 80.3kgs";
+            break;
+        case (73): healthyBMI.textContent = "65.3kgs - 82.5kgs";
+            break;
+        case (74): healthyBMI.textContent = "67.3kgs - 84.6kgs";
+            break;
+        case (75): healthyBMI.textContent = "68.9kgs - 87.0kgs";
+            break;
+        case (76): healthyBMI.textContent = "70.8kgs - 89.5kgs";
+            break;
+    };
+};
+
+function updateImperialResultsRange() {
+    const imperialHeightFt = document.querySelector("#imperial-height-ft"); 
+    const imperialHeightIn = document.querySelector("#imperial-height-in");
+    let feet = imperialHeightFt.value.trim();
+    let inches = imperialHeightIn.value.trim();
+    height = Math.ceil((Number(feet) * 12) + Number(inches));
+    const healthyBMI = document.querySelector("#calc-bmi-resutls-range");
+
+    switch (height) {
+        case (58): healthyBMI.textContent = "6st 7lbs - 8st 3lbs";
+            break;
+        case (59): healthyBMI.textContent = "6st 10lbs - 8st 7lbs";
+            break;
+        case (60): healthyBMI.textContent = "6st 13lbs - 8st 11lbs";
+            break;
+        case (61): healthyBMI.textContent = "7st 2lbs - 9st 1lbs";
+            break;
+        case (62): healthyBMI.textContent = "7st 6lbs - 9st 5lbs";
+            break;
+        case (63): healthyBMI.textContent = "7st 9lbs - 9st 9lbs";
+            break;
+        case (64): healthyBMI.textContent = "7st 12lbs - 10st";
+            break;
+        case (65): healthyBMI.textContent = "8st 2lbs - 10st 4lbs";
+            break;
+        case (66): healthyBMI.textContent = "8st 6lbs - 10st 8lbs";
+            break;
+        case (67): healthyBMI.textContent = "8st 9lbs - 10st 13lbs";
+            break;
+        case (68): healthyBMI.textContent = "8st 13lbs - 11st 4lbs";
+            break;
+        case (69): healthyBMI.textContent = "9st 2lbs - 11st 8lbs";
+            break;
+        case (70): healthyBMI.textContent = "9st 6lbs - 11st 13lbs";
+            break;
+        case (71): healthyBMI.textContent = "9st 10lbs - 12st 4lbs";
+            break;
+        case (72): healthyBMI.textContent = "10st - 12st 9lbs";
+            break;
+        case (73): healthyBMI.textContent = "10st 4lbs - 13st";
+            break;
+        case (74): healthyBMI.textContent = "10st 8lbs - 13st 4lbs";
+            break;
+        case (75): healthyBMI.textContent = "10st 12lbs - 13 10lbs";
+            break;
+        case (76): healthyBMI.textContent = "11st 2lbs - 14st 1lb";
+            break;
+    };
+
+};
 
 
 
