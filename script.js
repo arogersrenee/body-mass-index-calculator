@@ -113,6 +113,10 @@ function resetSummary() {
 
 const numInputs = document.querySelectorAll("input[type=number]");
 
+const metricInputs = document.querySelectorAll(".metric-input");
+const imperialInputs = document.querySelectorAll(".imperial-input");
+
+
 const metricHeight = document.querySelector("#metric-height"); 
 const metricWeight = document.querySelector("#metric-weight");
 
@@ -125,19 +129,41 @@ const bmiScore = document.querySelector("#calc-bmi-results-score");
 const bmiClassification = document.querySelector("#calc-bmi-results-classification");
 
 
-numInputs.forEach((input) => {
+metricInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if (metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
             bmiScore.textContent = calculateBMI(...convertMetricUnits());
             updateClassification();
             updateMetricResultsRange();
-        }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
+        } 
+    })
+})
+
+imperialInputs.forEach((input) => {
+    input.addEventListener("keyup", () => {
+        if (imperialHeightFt.value.trim() > 0 || imperialHeightIn.value.trim() > 0) {
             bmiScore.textContent = calculateBMI(...convertImperialUnits());
             updateClassification();
             updateImperialResultsRange();
         }
     })
 })
+// numInputs.forEach((input) => {
+//     input.addEventListener("keyup", () => {
+//         if (metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
+//             bmiScore.textContent = calculateBMI(...convertMetricUnits());
+//             updateClassification();
+//             updateMetricResultsRange();
+//         }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
+//             bmiScore.textContent = calculateBMI(...convertImperialUnits());
+//             updateClassification();
+//             updateImperialResultsRange();
+//         }
+//     })
+// })
+
+
+
 
 //convert to lbs and inches
 function convertImperialUnits() {
@@ -152,6 +178,14 @@ function convertImperialUnits() {
 
     if (pounds == ""){
         pounds = 0;
+    }
+
+    if (feet == ""){
+        feet = 0;
+    }
+
+    if (stones == ""){
+        stones = 0;
     }
 
     weight = (Number(stones) * 14) + Number(pounds);
