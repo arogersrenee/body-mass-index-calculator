@@ -127,11 +127,11 @@ const bmiClassification = document.querySelector("#calc-bmi-results-classificati
 
 numInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
-        if (metricHeight.value.trim() >= 0 && metricWeight.value.trim() >= 0){
+        if (metricHeight.value.trim() > 0 && metricWeight.value.trim() > 0){
             bmiScore.textContent = calculateBMI(...convertMetricUnits());
             updateClassification();
             updateMetricResultsRange();
-        }  else if (imperialHeightFt.value.trim() >= 0 && imperialWeightSt.value.trim() >= 0) {
+        }  else if (imperialHeightFt.value.trim() > 0 && imperialWeightSt.value.trim() > 0) {
             bmiScore.textContent = calculateBMI(...convertImperialUnits());
             updateClassification();
             updateImperialResultsRange();
