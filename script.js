@@ -1,8 +1,5 @@
-const numInputs = document.querySelectorAll("input[type=number]");
-
 const metricInputs = document.querySelectorAll(".metric-input");
 const imperialInputs = document.querySelectorAll(".imperial-input");
-
 
 const metricHeight = document.querySelector("#metric-height"); 
 const metricWeight = document.querySelector("#metric-weight");
