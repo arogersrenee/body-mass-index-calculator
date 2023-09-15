@@ -18,7 +18,6 @@ const healthyBMI = document.querySelector("#calc-bmi-resutls-range");
 
 
 // When no input, welcome-msg is visible, hide results-summary. With input hide welcom-msg, show results-summary.
-
 (function toggleWelcome() {
     const bioInputs = document.querySelectorAll("input[type=number]");
 
@@ -93,6 +92,7 @@ function hideWelcome() {
 
 })();
 
+
 function resetSummary() {
     const bmiScore = document.querySelector("#calc-bmi-results-score")
     const bmiClassification = document.querySelector("#calc-bmi-results-classification");
@@ -109,23 +109,22 @@ metricInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if (metricHeight.value.trim() > 0){
             bmiScore.textContent = calculateBMI(...convertMetricUnits());
-            updateClassification();
-            updateMetricResultsRange();
+            printClassification();
+            printMetricResultsRange();
         } 
     })
 })
+
 
 imperialInputs.forEach((input) => {
     input.addEventListener("keyup", () => {
         if (imperialHeightFt.value.trim() > 0 || imperialHeightIn.value.trim() > 0) {
             bmiScore.textContent = calculateBMI(...convertImperialUnits());
-            updateClassification();
-            updateImperialResultsRange();
+            printClassification();
+            printImperialResultsRange();
         }
     })
 })
-
-
 
 
 //convert to lbs and inches
@@ -156,6 +155,7 @@ function convertImperialUnits() {
     return [weight, height]
 }
 
+
 function convertMetricUnits() {
     let kilograms = metricWeight.value.trim();
     let centimeters = metricHeight.value.trim();
@@ -163,6 +163,7 @@ function convertMetricUnits() {
     weight = Number(kilograms) * 2.205;
     return [weight, height]
 }
+
 
 // BMI = (weight (lbs) / (height(inches)*2)) * 703
 function calculateBMI (weight, height) {
@@ -172,7 +173,7 @@ function calculateBMI (weight, height) {
 }
 
 
-function updateClassification() {
+function printClassification() {
     if (Number(bmiScore.textContent) >= 30){
         bmiClassification.textContent = "you're obese";
     } else if (Number(bmiScore.textContent) >= 25 && Number(bmiScore.textContent) < 30){
@@ -184,7 +185,8 @@ function updateClassification() {
     }
 }
 
-function updateMetricResultsRange() {
+
+function printMetricResultsRange() {
     let height = Number(metricHeight.value.trim());
 
     const upperWeight = Math.round(((healthyUpperLimit / 10000) * (height**2)) * 10) / 10;
@@ -194,7 +196,7 @@ function updateMetricResultsRange() {
 }
 
 
-function updateImperialResultsRange() {
+function printImperialResultsRange() {
     let feet = Number(imperialHeightFt.value.trim());
     let inches = Number(imperialHeightIn.value.trim());
     height = (feet * 12) + inches;
